@@ -1,0 +1,11 @@
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="content">Message</label>
+            <textarea rows="2" maxlength="140" class="form-control" style="width: 100%; resize: none" id="message_content" required name="message"
+                formControlName="message"></textarea>
+        </div>
+        <button class="btn btn-primary" [disabled]="!myForm.valid" type="submit">Save</button>
+
+    </form>
+</div>
