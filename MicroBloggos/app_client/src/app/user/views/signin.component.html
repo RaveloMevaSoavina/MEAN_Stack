@@ -1,0 +1,23 @@
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="email" id="email" class="form-control" formControlName="email" name="email">
+        </div>
+        <div *ngIf="myForm.controls.email.errors && (myForm.controls.email.touched && myForm.controls.email.dirty)" class="alert alert-danger">
+            <div *ngIf="myForm.controls.email.errors.required">email is required.</div>
+            <div *ngIf="myForm.controls.email.errors.email">email address doesn't meet the good format.</div>            
+            <div *ngIf="myForm.controls.email.errors.minlength">email must be at least 4 characters long.</div>
+            <div *ngIf="myForm.controls.email.errors.maxlength">email cannot be longer than 30 characters.</div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" id="password" formControlName="password" class="form-control" name="password">
+        </div>
+        <div *ngIf="myForm.controls.password.errors && (myForm.controls.password.touched && myForm.controls.password.dirty)" class="alert alert-danger">
+            <div *ngIf="myForm.controls.password.errors.minlength">password must be at least 4 characters long.</div>
+            <div *ngIf="myForm.controls.password.errors.maxlength">password cannot be longer than 20 characters.</div>
+        </div>
+        <button class="btn btn-primary" [disabled]="!myForm.valid" type="submit">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+<div class="backdrop" [ngStyle]="{'display': displayed}"></div>
+<div class="modal" [ngStyle]="{'display': displayed}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="onErrorCloseClick()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title">{{ success?.message}}{{ error?.title}}</h2>
+            </div>
+            <div class="modal-body">
+                <p>{{ success?.message}}{{ error?.message}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="onErrorCloseClick()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
