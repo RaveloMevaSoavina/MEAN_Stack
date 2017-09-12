@@ -1,6 +1,10 @@
 <div class="col-md-8 col-md-offset-2">
     <app-message
         [message]="message"
+<<<<<<< HEAD
+=======
+        (editClicked) = "message.content  = $event"
+>>>>>>> ad904ccfcfbd4538210a2ecfc8f0f2a69bafa081
         *ngFor="let message of messages">
     </app-message>
 </div>

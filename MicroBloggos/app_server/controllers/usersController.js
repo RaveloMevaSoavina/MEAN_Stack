@@ -12,7 +12,11 @@ module.exports = {
             password: false
         };
         User.find({}, usersProjection, function (err, result) {
+<<<<<<< HEAD
             if (err) response.status(500).json({ 'title': 'error', 'message': err.message });
+=======
+            if (err) response.status(500).json({ 'title': 'error', 'error': err.message });
+>>>>>>> ad904ccfcfbd4538210a2ecfc8f0f2a69bafa081
             else {
                 for (var i = 0; i < result.length; i++)
                     result[i]['_id'] = url + '/users/' + result[i]['_id'];
@@ -81,7 +85,11 @@ module.exports = {
     //suppression d'un user 
     usersDeleteOne: function (req_params, response) {
         if (!req_params.userid) {//id est absent dans la requète, on renvoi une erreur 500
+<<<<<<< HEAD
             return response.status(500).json({ 'error_type': 'BAD_PARAMETERS', "error": "missing id" });
+=======
+            response.status(500).json({ 'error_type': 'BAD_PARAMETERS', "error": "missing id" });
+>>>>>>> ad904ccfcfbd4538210a2ecfc8f0f2a69bafa081
         }
         //requète user
         User.findOne({ _id: req_params.userid }, function (err, result) {

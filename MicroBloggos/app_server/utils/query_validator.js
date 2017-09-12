@@ -14,7 +14,7 @@ module.exports = {
                     js_ret[0]['email_match_error'] = "Invalid email address"
             }
         }
-        if (requiered == true || user.password) {
+        if (requiered == true ||  user.password) {
             if (user.password.length < 4 || user.password.length > 20)
                 js_ret[0]['password_length_error'] = "Password must be between 4 and 20 characters long"
         }
