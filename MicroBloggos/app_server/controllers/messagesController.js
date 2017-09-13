@@ -4,7 +4,6 @@ var url = require('url');
 
 module.exports = {
     messageAdd: function (req_body, response, url) {
-<<<<<<< HEAD
         /*if(!req_body.isJson){
             return response.status(500).send(JSON.stringify({ 'error': 'Not JSON object' }));
         }*/
@@ -28,20 +27,6 @@ module.exports = {
             }
         });
     },
-=======
-        if (!('description' in req_body) ||  !('user' in req_body) || req_body.description.length() < 4) {
-            return response.status(500).send(JSON.stringify({ 'error': 'Bad parameters' }));
-        }
-        var message = new Message({
-            description: req_body.description,
-            user:req_body.user
-        });
-        message.save(function(err, result){
-            if (err) response.status(500).json({ 'title': 'error', 'error': err.message });
-            else response.status(201).json(result);
-        });
-    },        
->>>>>>> ad904ccfcfbd4538210a2ecfc8f0f2a69bafa081
     //retourne tous les utilisateurs
     messagesReadAll: function (req_body, response, url) {
         var filter = {

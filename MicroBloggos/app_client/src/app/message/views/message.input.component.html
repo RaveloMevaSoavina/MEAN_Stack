@@ -1,7 +1,6 @@
 <div class="col-md-8 col-md-offset-2">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-<<<<<<< HEAD
             <label for="description">Message</label>
             <textarea rows="2" maxlength="140" class="form-control" 
                       style="width: 100%; resize: none" id="description" 
@@ -10,13 +9,5 @@
         </div>
         <button class="btn btn-danger" [disabled]="!myForm.valid" type="button" (click)="onCancel()">Cancel</button>
         <button class="btn btn-primary" [disabled]="!myForm.valid" type="submit">Save</button>  
-=======
-            <label for="content">Message</label>
-            <textarea rows="2" maxlength="140" class="form-control" style="width: 100%; resize: none" id="message_content" required name="message"
-                formControlName="message"></textarea>
-        </div>
-        <button class="btn btn-primary" [disabled]="!myForm.valid" type="submit">Save</button>
-
->>>>>>> ad904ccfcfbd4538210a2ecfc8f0f2a69bafa081
     </form>
 </div>

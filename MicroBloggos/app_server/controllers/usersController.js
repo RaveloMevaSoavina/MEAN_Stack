@@ -12,11 +12,7 @@ module.exports = {
             password: false
         };
         User.find({}, usersProjection, function (err, result) {
-<<<<<<< HEAD
             if (err) response.status(500).json({ 'title': 'error', 'message': err.message });
-=======
-            if (err) response.status(500).json({ 'title': 'error', 'error': err.message });
->>>>>>> ad904ccfcfbd4538210a2ecfc8f0f2a69bafa081
             else {
                 for (var i = 0; i < result.length; i++)
                     result[i]['_id'] = url + '/users/' + result[i]['_id'];
@@ -27,7 +23,7 @@ module.exports = {
     //retourne un user selon son id
     usersReadOne: function (req_params, response, url) {
         if (!req_params.userid) {
-            return response.status(500).json({ 'title': 'BAD_PARAMETERS', "message": "missing id" });
+            return response.status(500).json({ 'title': 'Bad parameters', "message": "missing id" });
         }
         //on élimine les données inutiles ou sensibles de la requète
         var usersProjection = {
@@ -45,7 +41,7 @@ module.exports = {
     //update d'un user
     usersUpdateOne: function (req, response, url) {
         if (!req.params.userid) {//id absent de la requète
-            return response.status(500).json({ 'title': 'BAD_PARAMETERS', "messgae": "missing id" });
+            return response.status(500).json({ 'title': 'Bad parameters', "messgae": "missing id" });
         }
         User.findOne({ _id: req.params.userid }, function (err, result) {
             if (err) response.status(500).json({ 'title': 'error', 'message': err.message });
@@ -59,12 +55,12 @@ module.exports = {
                     (req.body.password? user['password'] = req.body.password:null);
                     console.log(user, result);
                     if (!Object.keys(user).length) {
-                        response.status(500).json({ 'title': 'BAD_PARAMETERS','message': 'nothing to update'});
+                        response.status(500).json({ 'title': 'Bad parameters','message': 'nothing to update'});
                         return;
                     }
                     var validator_errors = validator.validateUser(user, false);
                     if (Object.keys(validator_errors[0]).length) { 
-                        response.status(500).json({ 'title': 'VALIDATION_ERROR', 'message' : validator_errors});
+                        response.status(500).json({ 'title': 'validation error', 'message' : validator_errors});
                         return;
                     } else {
                         if(user.password) user.password = bcrypt.hashSync(user.password, 10);q
@@ -85,11 +81,7 @@ module.exports = {
     //suppression d'un user 
     usersDeleteOne: function (req_params, response) {
         if (!req_params.userid) {//id est absent dans la requète, on renvoi une erreur 500
-<<<<<<< HEAD
-            return response.status(500).json({ 'error_type': 'BAD_PARAMETERS', "error": "missing id" });
-=======
-            response.status(500).json({ 'error_type': 'BAD_PARAMETERS', "error": "missing id" });
->>>>>>> ad904ccfcfbd4538210a2ecfc8f0f2a69bafa081
+            return response.status(500).json({ 'title': 'Bad parameters', "error": "missing id" });
         }
         //requète user
         User.findOne({ _id: req_params.userid }, function (err, result) {
