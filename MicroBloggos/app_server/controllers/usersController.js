@@ -53,7 +53,6 @@ module.exports = {
                     (req.body.username && req.body.username != result.username? user['username'] = req.body.username:null);
                     (req.body.email && req.body.email != result.email ? user['email'] = req.body.email:null);
                     (req.body.password? user['password'] = req.body.password:null);
-                    console.log(user, result);
                     if (!Object.keys(user).length) {
                         response.status(500).json({ 'title': 'Bad parameters','message': 'nothing to update'});
                         return;

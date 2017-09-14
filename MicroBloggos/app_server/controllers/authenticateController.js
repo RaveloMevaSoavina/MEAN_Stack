@@ -5,7 +5,6 @@ var jwt = require('jsonwebtoken');
 
 module.exports = {
     userRegister: function (req_body, response) {
-        console.log('register ', req_body);
         if (!('username' in req_body) ||  !('email' in req_body) ||  !('password' in req_body)) {
             return response.status(500).send(JSON.stringify({ 'title': 'Bad parameters', 'message':'expected parameters not found in body' }));
         }
@@ -26,7 +25,6 @@ module.exports = {
         }
     },
     userLogin : function (req_body, response) {
-        console.log(req_body);
         if (!('email' in req_body) ||  !('password' in req_body)) {
             return response.status(500).send(JSON.stringify({ 'title': 'Bad parameters', 'message':'expected parameters not found in body' }));
         }
@@ -39,7 +37,7 @@ module.exports = {
                     if(!bcrypt.compareSync(req_body.password, user.password)){
                         return response.status(401).json({ 'title': 'error', 'message': 'login failed' });
                     }else{
-                        var token = jwt.sign({user : user}, 'secret', {expiresIn: 7200});
+                        var token = jwt.sign({user : user}, 'secret', {expiresIn: 30});
                         response.status(200).json({'title': 'login', 'message': 'Successfully logged in', token: token, userId: user._id});
                     }
                 }

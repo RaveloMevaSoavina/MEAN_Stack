@@ -1,3 +1,4 @@
+import { Flash } from './flash.model';
 import { FlashService } from './flash.service';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -18,6 +19,7 @@ import { Error } from "./error.model";
 })
 export class FlashComponent implements OnInit{
     error: Error;
+    flash: Flash;
     displayed = 'none';
 
     constructor(private errorService:FlashService){}
@@ -28,7 +30,15 @@ export class FlashComponent implements OnInit{
     ngOnInit(){
         this.errorService.errorOccuredEvent.subscribe(
             (error: Error) => {
+                this.flash = null;
                 this.error = error;
+                this.displayed = 'block';
+            }
+        );
+        this.errorService.flashOccuredEvent.subscribe(
+            (flash: Flash) => {
+                this.error = null;
+                this.flash = flash;
                 this.displayed = 'block';
             }
         )

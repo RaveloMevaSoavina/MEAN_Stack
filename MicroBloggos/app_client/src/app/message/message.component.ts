@@ -1,6 +1,7 @@
+import { UserService } from './../user/service/user.service';
 import { Message } from './model//message.model';
 import { MessageService } from './service/message.service';
-
+import * as $ from 'jquery';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
  @Component({
@@ -11,13 +12,22 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class MessageComponent{
     @Input() message:Message;
     //@Output() editClicked = new EventEmitter<String>();
-    constructor(private messageService:MessageService){}
+    constructor(private messageService:MessageService, private userService:UserService){}
     onEdit(event){
         this.messageService.editMessage(this.message);
     }
     onDelete(event){
         this.messageService.deleteMessage(this.message).subscribe(
-            result => console.log(result)
+            //result => console.log(result)
         )
+    }
+    isLoggedIn(){
+        return this.userService.isLoggedIn();
+    }
+    isUserMessage(){
+        if(this.message.user._id == localStorage.getItem('userId')){
+            return true;
+        }
+        return false;
     }
 }

@@ -41,7 +41,6 @@ export class UserService {
  
     signin(user: User) {
         const body = JSON.stringify(user);
-        console.log(user);
         return this.http.post('http://127.0.0.1:3000/user/login', body, { headers: this.my_headers })
             .map((response: Response) => {
                 const result = response.json();

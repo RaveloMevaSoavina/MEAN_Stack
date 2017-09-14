@@ -6,10 +6,10 @@
                 <button type="button" class="close" aria-label="Close" (click)="onErrorCloseClick()">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h2 class="modal-title">{{ success?.message}}{{ error?.title}}</h2>
+                <h2 class="modal-title">{{ flash?.title}}{{ error?.title}} </h2>
             </div>
             <div class="modal-body">
-                <p>{{ success?.message}}{{ error?.message}}</p>
+                <p>{{ flash?.message}}{{ error?.message}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="onErrorCloseClick()">Close</button>

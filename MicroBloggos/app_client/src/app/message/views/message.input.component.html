@@ -1,13 +1,15 @@
-<div class="col-md-8 col-md-offset-2">
+<div class="message-input col-md-8 col-md-offset-2" style="display:none">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="description">Message</label>
-            <textarea rows="2" maxlength="140" class="form-control" 
-                      style="width: 100%; resize: none" id="description" 
-                      required name="description" [ngModel]='message?.description'
-                      formControlName="description"></textarea>
+            <textarea rows="2" maxlength="140" class="form-control" style="width: 100%; resize: none" id="description" required name="description"
+                [ngModel]='message?.description' formControlName="description"></textarea>
         </div>
-        <button class="btn btn-danger" [disabled]="!myForm.valid" type="button" (click)="onCancel()">Cancel</button>
-        <button class="btn btn-primary" [disabled]="!myForm.valid" type="submit">Save</button>  
+        <div>
+            <button class="btn btn-danger" [disabled]="!myForm.valid" type="button" (click)="onCancel()">Cancel</button>
+            <button class="btn btn-primary" [disabled]="!myForm.valid" type="submit">Save</button>
+        </div>
     </form>
 </div>
+
+<div style="clear:both"></div>

@@ -1,6 +1,6 @@
 <div class="col-md-8 col-md-offset-2">
-    <app-message
-        [message]="message"
-        *ngFor="let message of messages">
+    <button class="btn btn-primary add-message" (click)="showMessageForm()" >Add message</button>
+    <div style="clear:both"></div>
+    <app-message [message]="message" *ngFor="let message of messages">
     </app-message>
 </div>

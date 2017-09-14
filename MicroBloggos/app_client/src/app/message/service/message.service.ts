@@ -10,13 +10,18 @@ import { Observable } from 'rxjs'
 export class MessageService {
 
     private messages: Message[] = [];
-    messageIsEditEvent = new EventEmitter<Message>();
+    switchMessageFormEvent = new EventEmitter<string>();
+    messageEditEvent = new EventEmitter<Message>();
     constructor(private http: Http, private flashService:FlashService) { }
-    my_headers = new Headers({ 'content-type': 'application/json' });
+    my_headers = new Headers({ 'Content-type': 'application/json' });
 
     addMessage(message: Message) {
         const body = JSON.stringify(message);
-        return this.http.post('http://127.0.0.1:3000/messages', body, { headers: this.my_headers })
+        var token:String = '';
+        if(localStorage.getItem('token')){
+            token = '?token=' + localStorage.getItem('token');
+        }
+        return this.http.post('http://127.0.0.1:3000/messages'+token, body, { headers: this.my_headers })
             .map((response: Response) => {
                 const result = response.json();
                 message = new Message(result.obj.description, result.obj.user, result.obj._id, result.obj.createdAt, result.obj.updatedAt);    
@@ -24,7 +29,10 @@ export class MessageService {
                 this.flashService.handleFlash(new Flash('message', 'Message added successfully !'));                
                 return message;
             })
-            .catch((error: Response) => Observable.throw(error.json));
+            .catch((error: Response) => {
+                this.flashService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
     }
 
     getMessages() {
@@ -53,24 +61,34 @@ export class MessageService {
 
     updateMessage(message: Message){
         const body = JSON.stringify(message);
-        return this.http.patch('http://127.0.0.1:3000/messages/'+message._id, body, { headers: this.my_headers })
+        var token:String = '';
+        if(localStorage.getItem('token')){
+            token = '?token=' + localStorage.getItem('token');
+        }
+        return this.http.patch('http://127.0.0.1:3000/messages/' + message._id + token, body, { headers: this.my_headers })
             .map((response: Response) => {
                 this.flashService.handleFlash(new Flash('message', 'Message updated successfully !'));  
-                //response.json()
+                return response.json();
             })
             .catch((error: Response) => {
                 this.flashService.handleError(error.json());
                 return Observable.throw(error.json());
             });
     }
-    
+    switchMessageForm() {
+        this.switchMessageFormEvent.emit("switch message form");
+    }
     editMessage(message: Message) {
-        this.messageIsEditEvent.emit(message);
+        this.messageEditEvent.emit(message);
     }
 
     deleteMessage(message: Message) {
         this.messages.splice(this.messages.indexOf(message), 1);
-        return this.http.delete('http://127.0.0.1:3000/messages/'+message._id)
+        var token:String = '';
+        if(localStorage.getItem('token')){
+            token = '?token=' + localStorage.getItem('token');
+        }
+        return this.http.delete('http://127.0.0.1:3000/messages/' + message._id + token)
             .map((response: Response) => {
                 this.flashService.handleFlash(new Flash('message', 'Message deleted successfully !'));  
             })

@@ -2,54 +2,86 @@ import { Component, OnInit } from "@angular/core";
 import { Message } from './model/message.model';
 import { MessageService } from './service/message.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'app-message-input',
     templateUrl: './views/message.input.component.html',
-    styleUrls: ['./views/message.input.component.css']    
+    styleUrls: ['./views/message.input.component.css']
 })
-export class MessageInputComponent implements OnInit{ 
-    myForm:FormGroup;
-    message:Message;
-    constructor(private messageService:MessageService){}
+export class MessageInputComponent implements OnInit {
+    myForm: FormGroup;
+    message: Message;
+    error: any;
+    showForm : boolean = true;
+    constructor(private messageService: MessageService, private router: Router) { }
 
-    onSubmit(){
-        if(this.message){//message préchargé, on est en mode édition
+    onSubmit() {
+        if (this.message) {//message préchargé, on est en mode édition
             this.message.description = this.myForm.value.description;
-            this.message.user = "59b04ecc9ca1f00cf20d0462";
             console.log(this.message);
             this.messageService.updateMessage(this.message)
                 .subscribe(
-                    result => console.log(result),
-                    error => console.log(error)
-                )
+                result => {},
+                error => {},
+            )
             this.message = null;
-        }else{//aucun message défini, on appelle methode addmessage
-            const message = new Message(this.myForm.value.description, "59b04ecc9ca1f00cf20d0462");
+        } else {//aucun message défini, on appelle methode addmessage
+            const message = new Message(this.myForm.value.description);
             this.messageService.addMessage(message)
                 .subscribe(
-                    data => console.log(data),
-                    error => console.log(error)
-                );
+                result => { },
+                error => {
+                    if (error.hasOwnProperty('title')) {
+                        if (error.title.indexOf("Authentication") > -1) {
+                            localStorage.clear();
+                            this.router.navigate(['auth', 'signin']);
+                        }
+                    }
+                },
+            );
         }
+        this.showForm = true;
+        $('.message-input').slideUp("normal");
         this.myForm.reset();
     }
 
-    onCancel(){
+    onCancel() {
+        $('.message-input').slideUp("normal");
         this.message = null;
+        this.showForm = true;
         this.myForm.reset();
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.myForm = new FormGroup({
-            description: new FormControl(null,  [
+            description: new FormControl(null, [
                 Validators.required,
                 Validators.minLength(4),
                 Validators.maxLength(140)
             ]),
         });
-        this.messageService.messageIsEditEvent.subscribe(
-            (message: Message) => this.message = message
+        this.messageService.messageEditEvent.subscribe(
+            (message: Message) => {
+                if(this.showForm) {
+                    $('.message-input').slideDown("normal");
+                    this.showForm = !this.showForm;
+                }
+                this.message = message;
+            }
+        );
+        this.messageService.switchMessageFormEvent.subscribe(
+            (evt: string) => {
+                if(this.showForm) {
+                    $('.message-input').slideDown("normal");
+                }else {
+                    this.myForm.reset();
+                    this.message = null;
+                    $('.message-input').slideUp("normal");
+                }
+                this.showForm = !this.showForm;
+            }
         );
     }
 }
