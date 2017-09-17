@@ -1,3 +1,4 @@
+import { UserGuardService } from './user/service/user.guard.service';
 import { FlashService } from './flashs/flash.service';
 import { FlashComponent } from './flashs/flash.component';
 import { UserService } from './user/service/user.service';
@@ -37,7 +38,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule, FormsModule, routing, ReactiveFormsModule, HttpModule
   ],
-  providers: [MessageService, UserService, FlashService],
+  providers: [MessageService, UserService, FlashService, UserGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

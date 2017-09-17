@@ -27,6 +27,9 @@ export class SignupComponent implements OnInit {
         this.myForm.reset();
     }
     ngOnInit(){
+        if(!this.userService.isLoggedIn()){
+            //this.router.navigate(['auth', 'signin']);
+        }
         this.myForm = new FormGroup({
             username: new FormControl(null,  [
                 Validators.required,

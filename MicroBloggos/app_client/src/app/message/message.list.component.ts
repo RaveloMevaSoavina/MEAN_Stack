@@ -1,3 +1,4 @@
+import { UserService } from './../user/service/user.service';
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { Message } from './model/message.model';
 import { MessageService } from './service/message.service';
@@ -9,7 +10,7 @@ import { MessageService } from './service/message.service';
 })
 export class MessageListComponent implements OnInit {
     private messages: Message[];
-    constructor(private messageService:MessageService){}
+    constructor(private messageService:MessageService, private userService:UserService){}
     @Output()
     addMessageEvent:EventEmitter<boolean> = new EventEmitter();
 
@@ -24,6 +25,8 @@ export class MessageListComponent implements OnInit {
     }
     showMessageForm() {
         this.messageService.switchMessageForm();
-
-    }    
+    }
+    isLoggedIn(){
+        return this.userService.isLoggedIn();
+    }   
 }
