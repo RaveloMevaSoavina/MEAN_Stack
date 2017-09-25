@@ -7,7 +7,7 @@ import { SignupComponent } from './user/signup.component';
 import { SigninComponent } from './user/signin.component';
 import { LogoutComponent } from './user/logout.component';
 import { routing } from './app.routing';
-import { UserComponent } from './user/user.component';
+import { UserNavComponent } from './user/user.nav.component';
 import { MessagesComponent } from './message/messages.component';
 import { MessageComponent } from './message/message.component';
 import { MessageListComponent } from './message/message.list.component';
@@ -28,7 +28,7 @@ import { AppComponent } from './app.component';
     MessageListComponent,
     MessageInputComponent,
     MessagesComponent,
-    UserComponent,
+    UserNavComponent,
     HeaderComponent,
     LogoutComponent,
     SigninComponent,
