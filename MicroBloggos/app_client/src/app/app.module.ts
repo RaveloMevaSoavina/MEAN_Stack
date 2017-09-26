@@ -1,3 +1,5 @@
+import { UsersComponent } from './user/users.component.';
+import { UsersListComponent } from './user/users.list.component';
 import { UserGuardService } from './user/service/user.guard.service';
 import { FlashService } from './flashs/flash.service';
 import { FlashComponent } from './flashs/flash.component';
@@ -33,7 +35,9 @@ import { AppComponent } from './app.component';
     LogoutComponent,
     SigninComponent,
     SignupComponent,
-    FlashComponent
+    FlashComponent,
+    UsersListComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule, FormsModule, routing, ReactiveFormsModule, HttpModule
