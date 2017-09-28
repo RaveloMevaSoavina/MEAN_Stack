@@ -37,7 +37,7 @@ module.exports = {
                     if(!bcrypt.compareSync(req_body.password, user.password)){
                         return response.status(401).json({ 'title': 'error', 'message': 'login failed' });
                     }else{
-                        var token = jwt.sign({user : user}, 'secret', {expiresIn: 30});
+                        var token = jwt.sign({user : user}, 'secret', {expiresIn: 30000});
                         response.status(200).json({'title': 'login', 'message': 'Successfully logged in', token: token, userId: user._id});
                     }
                 }

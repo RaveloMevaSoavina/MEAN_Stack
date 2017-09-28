@@ -38,7 +38,7 @@ export class MessageService {
     getMessages() {
         return this.http.get('http://127.0.0.1:3000/messages')
             .map((response: Response) => {
-                const messages = response.json().obj;
+                const messages = response.json();
                 let arr: Message[] = [];
                 for (let obj of messages) {
                     let message = new Message(

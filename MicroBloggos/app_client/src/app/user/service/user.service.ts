@@ -15,6 +15,33 @@ export class UserService {
 
     constructor(private http: Http, private flashService:FlashService) { }
     
+    getUsers() {
+        return this.http.get('http://127.0.0.1:3000/users')
+            .map((response: Response) => {
+                const users = response.json();
+                let arr: User[] = [];
+                for (let obj of users) {
+                    let user = new User(
+                        obj.email,
+                        obj.username,
+                        null,
+                        obj._id,
+                        obj.messagesId,
+                        new Date(obj.createdAt),
+                        new Date(obj.updatedAt)
+                    );
+                    arr.push(user);
+                }
+                this.users = arr;
+                return arr;
+            })
+            .catch((error: Response) => {
+                this.flashService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+
     signup(user: User) {
         const body = JSON.stringify(user);
         console.log('register', user);
@@ -61,32 +88,7 @@ export class UserService {
     isLoggedIn(){
         return localStorage.getItem('token') !== null;
     }
-    getUsers() {
-        return this.http.get('http://127.0.0.1:3000/users',{ headers: this.my_headers })
-            .map((response: Response) => {
-                const users = response.json().obj;
-                let arr: User[] = [];
-                for (let obj of users) {
-                    let user = new User(
-                        obj.email,
-                        obj.username,
-                        null,
-                        obj._id,
-                        obj.messagesId,
-                        new Date(obj.createdAt),
-                        new Date(obj.updatedAt)
-                    );
-                    arr.push(user);
-                }
-                this.users = arr;
-                return arr;
-            })
-            .catch((error: any) => {
-                this.flashService.handleError(error.json());
-                return Observable.throw(error.json());
-            });
-    }
-
+    
     updateUser(user: User){
         const body = JSON.stringify(user);
         return this.http.patch('http://127.0.0.1:3000/users/'+user._id, body, { headers: this.my_headers })

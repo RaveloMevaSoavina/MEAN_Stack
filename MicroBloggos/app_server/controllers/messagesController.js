@@ -51,10 +51,7 @@ module.exports = {
         .exec(function (err, messages) {
             if (err) response.status(500).json({ 'title': 'error', 'message': err.message });
             else {
-                response.status(201).json({
-                    message: 'Success',
-                    obj: messages
-                });
+                response.status(201).json(messages);
             }
         });
     },
