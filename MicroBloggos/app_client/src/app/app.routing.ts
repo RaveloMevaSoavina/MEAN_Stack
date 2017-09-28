@@ -1,4 +1,5 @@
-import { UsersListComponent } from './user/users.list.component';
+import { UsersComponent } from './user/users.component';
+import { UserListComponent } from './user/user.list.component';
 import { UserNavComponent } from './user/user.nav.component';
 import { USER_ROUTES } from './user/user.routes';
 
@@ -7,7 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 const APP_ROUTES:Routes = [
     { path: '', redirectTo: '/messages', pathMatch: 'full' },
     { path: 'messages', component: MessagesComponent },
-    { path: 'users', component: UsersListComponent},    
+    { path: 'users', component: UsersComponent},    
     { path: 'auth', component: UserNavComponent, children: USER_ROUTES},
 ];
 export const routing = RouterModule.forRoot(APP_ROUTES);

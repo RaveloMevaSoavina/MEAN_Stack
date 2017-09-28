@@ -11,9 +11,10 @@ export class UserService {
 
     private users: User[] = [];
     userIsEditEvent = new EventEmitter<User>();
-    my_headers = new Headers({ 'content-type': 'application/json' });
+    my_headers = new Headers({ 'content-type': 'application/json', 'Accept': 'application/json' });
 
     constructor(private http: Http, private flashService:FlashService) { }
+    
     signup(user: User) {
         const body = JSON.stringify(user);
         console.log('register', user);
@@ -61,7 +62,7 @@ export class UserService {
         return localStorage.getItem('token') !== null;
     }
     getUsers() {
-        return this.http.get('http://127.0.0.1:3000/users')
+        return this.http.get('http://127.0.0.1:3000/users',{ headers: this.my_headers })
             .map((response: Response) => {
                 const users = response.json().obj;
                 let arr: User[] = [];
@@ -80,7 +81,7 @@ export class UserService {
                 this.users = arr;
                 return arr;
             })
-            .catch((error: Response) => {
+            .catch((error: any) => {
                 this.flashService.handleError(error.json());
                 return Observable.throw(error.json());
             });

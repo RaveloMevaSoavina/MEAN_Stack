@@ -3,17 +3,22 @@ import { User } from './model/user.model';
 import { UserService } from './service/user.service';
 
 @Component({
-    selector: 'app-users-list',
+    selector: 'app-user-list',
     templateUrl: './views/user.list.component.html',
     styleUrls: ['./views/user.list.component.css']
 })
-export class UsersListComponent implements OnInit {
-    users:User[];
+export class UserListComponent implements OnInit {
+    private users: User[];
 
     constructor(private userService:UserService){}
 
     ngOnInit(){
         this.userService.getUsers()
-            .subscribe(users => this.users = users);
+            .subscribe(
+                (users: User[]) => {
+                    this.users = users
+                }
+            );
     }
 }
+ 

@@ -1,5 +1,6 @@
-import { UsersComponent } from './user/users.component.';
-import { UsersListComponent } from './user/users.list.component';
+import { UserComponent } from './user/user.component';
+import { UsersComponent } from './user/users.component';
+import { UserListComponent } from './user/user.list.component';
 import { UserGuardService } from './user/service/user.guard.service';
 import { FlashService } from './flashs/flash.service';
 import { FlashComponent } from './flashs/flash.component';
@@ -20,7 +21,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -36,7 +36,8 @@ import { AppComponent } from './app.component';
     SigninComponent,
     SignupComponent,
     FlashComponent,
-    UsersListComponent,
+    UserComponent,
+    UserListComponent,
     UsersComponent
   ],
   imports: [

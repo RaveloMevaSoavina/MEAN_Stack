@@ -1,7 +1,7 @@
 import { User } from './model/user.model';
 import { UserService } from './../user/service/user.service';
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, EventEmitter } from '@angular/core';
 
  @Component({
     selector: 'app-users',
@@ -9,7 +9,5 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./views/users.component.css']
 })
 export class UsersComponent{
-    @Input() user:User;
 
-    constructor(private userService:UserService){}
 }
