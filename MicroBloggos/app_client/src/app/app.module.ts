@@ -1,3 +1,4 @@
+import { UserProfileComponent } from './user/userProfile.component';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './user/users.component';
 import { UserListComponent } from './user/user.list.component';
@@ -38,7 +39,8 @@ import { AppComponent } from './app.component';
     FlashComponent,
     UserComponent,
     UserListComponent,
-    UsersComponent
+    UsersComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule, FormsModule, routing, ReactiveFormsModule, HttpModule
